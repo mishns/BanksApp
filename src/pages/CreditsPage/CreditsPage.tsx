@@ -1,4 +1,4 @@
-import { default as React, FC, useState } from "react";
+import { default as React, FC, useState, useEffect } from "react";
 import styles from "./creditspage.css";
 import uniqid from "uniqid";
 import { fetchCredits } from "@api/Credit";
@@ -17,6 +17,7 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
+import { useSearchParams } from "react-router-dom";
 
 function getProductCards(productList: Array<Product> | undefined) {
   return productList?.map(product => (
@@ -34,15 +35,28 @@ export const CreditsPage: FC = () => {
     { queryFn: fetchCredits, queryKey: ["creditsList"] },
     queryClient,
   );
+  const [searchParams, setSearchParams] = useSearchParams();
   const [minAmount, setMinAmount] = useState<number>(
-    creditsData?.filter.amount ?? 0,
+    creditsData?.filter.amount ?? +searchParams.get("minAmount")! ?? 0,
   );
-  const [sortOrder, setSortOrder] = useState<number>();
+  const [sortOrder, setSortOrder] = useState<string>(
+    searchParams?.get("sortOrder") ?? "1",
+  );
 
+  // Save state using url search params
+  useEffect(() => {
+    const searchParams = new URLSearchParams(
+      `minAmount=${minAmount}&sortOrder=${sortOrder}`,
+    );
+    setSearchParams(searchParams);
+  }, [minAmount, sortOrder]);
+
+  // Filter products according to min credit amount
   const filteredProducts = creditsData?.products.filter(
     product => product.amount >= minAmount,
   );
 
+  // Generate products components dom
   const productCards = getProductCards(filteredProducts);
 
   return (
@@ -55,7 +69,7 @@ export const CreditsPage: FC = () => {
               type="text"
               disableUnderline
               placeholder="Сумма кредита"
-              onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setMinAmount(Number(e.target.value))
               }
             />
@@ -70,7 +84,7 @@ export const CreditsPage: FC = () => {
             displayEmpty
             sx={{ width: "fit-content" }}
             renderValue={() => <span>Сортировать</span>}
-            onChange={(e: SelectChangeEvent) => setSortOrder(+e.target.value)}
+            onChange={(e: SelectChangeEvent) => setSortOrder(e.target.value)}
           >
             <MenuItem value="1">По минимальной сумме</MenuItem>
             <MenuItem value="-1">По максимальной сумме</MenuItem>
@@ -80,7 +94,7 @@ export const CreditsPage: FC = () => {
           <Loader />
         ) : (
           <div className={styles.productList}>
-            {sortOrder === -1 ? productCards?.reverse() : productCards}
+            {sortOrder === "-1" ? productCards?.reverse() : productCards}
           </div>
         )}
       </Container>
