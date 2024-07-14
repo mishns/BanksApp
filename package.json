@@ -17,8 +17,13 @@
     "test": "jest"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@hookform/resolvers": "^3.3.4",
+    "@mui/icons-material": "^5.16.1",
+    "@mui/material": "^5.16.1",
     "@tanstack/react-query": "^5.24.8",
+    "@types/uniqid": "^5.3.4",
     "ajv": "^8.16.0",
     "classnames": "^2.5.1",
     "normalize.css": "^8.0.1",
@@ -27,6 +32,8 @@
     "react-hook-form": "^7.49.2",
     "react-refresh": "^0.14.0",
     "react-router-dom": "^6.22.3",
+    "uniqid": "^5.4.0",
+    "use-query-params": "^2.2.1",
     "zod": "^3.22.4"
   },
   "devDependencies": {

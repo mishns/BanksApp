@@ -23,6 +23,8 @@
       "@api/*": ["./src/api/*"],
       "@pages/*": ["./src/pages/*"],
       "@ui/*": ["./src/ui/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@src/*": ["./src/*"],
       "@root/*": ["./*"],
     }
   },

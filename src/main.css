@@ -18,13 +18,14 @@
   --color-grey_light: #E4E4E4;
   --color-grey_lighten: #F4F4F4;
   --color-grey: #C4C4C4;
-  --color-grey_dark: #999999;
+  --color-grey_dark: #7b7979;
 
 
-  --box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
+  --box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.01), 0 6px 20px 0 rgba(0, 0, 0, 0.01);
   --dimming: rgba(51, 51, 51, 0.5);
 
-  --gap: 32px;
+  --gap: 10px;
+  --border-radius: 10px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -64,7 +65,7 @@
   font-size: 16px;
   line-height: 1.2;
   color: var(--color-main);
-  font-family: sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 
