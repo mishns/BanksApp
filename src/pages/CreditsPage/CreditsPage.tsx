@@ -43,10 +43,14 @@ function getInitMinAmount(
   creditsData: Credits | undefined,
   searchParams: URLSearchParams,
 ) {
-  let minAmount = creditsData?.filter?.amount;
-  minAmount ??= +searchParams.get("minAmount")!;
-  minAmount ??= 0;
-  return minAmount > 0 ? minAmount : 0;
+  let minAmount = Number(searchParams.get("minAmount"));
+  if (minAmount === 0) {
+    minAmount = Number(creditsData?.filter?.amount);
+  }
+  if (!minAmount) {
+    minAmount = 0;
+  }
+  return minAmount;
 }
 
 export const CreditsPage: FC = () => {
@@ -61,6 +65,10 @@ export const CreditsPage: FC = () => {
   const [sortOrder, setSortOrder] = useState<string>(
     searchParams?.get("sortOrder") ?? "1",
   );
+
+  useEffect(() => {
+    setMinAmount(getInitMinAmount(creditsData, searchParams));
+  }, [creditsData]);
 
   // Save state using url search params
   useEffect(() => {
