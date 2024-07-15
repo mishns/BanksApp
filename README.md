@@ -16,3 +16,32 @@
 - Дать возможность отсортировать кредитные продукты по сумме: от большего к меньшему и наоборот.
 - Работоспособность в последней версии Google Chrome
 - Плюсом будут комментарии к коду, чтобы нам было проще оценить знания
+
+
+
+## Install
+
+```sh
+npm install
+```
+
+For prod build:
+```sh
+npm install -g serve
+```
+
+## Usage
+
+Dev mode:
+```sh
+npm run dev
+```
+Prod mode:
+```sh
+npm run duild-prod
+npm run start-json-server
+npx serve dist
+```
+
+## Author
+* Github: [@mishns](https://github.com/mishns)
