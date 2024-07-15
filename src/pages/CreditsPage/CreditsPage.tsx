@@ -1,7 +1,7 @@
 import { default as React, FC, useState, useEffect } from "react";
 import styles from "./creditspage.css";
 import uniqid from "uniqid";
-import { fetchCredits } from "@api/Credit";
+import { Credits, fetchCredits } from "@api/Credit";
 import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "@api/queryClient";
 import { ProductCard } from "@ui/ProductCard";
@@ -38,6 +38,17 @@ function getProductCards(productList: Array<Product> | undefined) {
   ));
 }
 
+// Figure out min amount init value
+function getInitMinAmount(
+  creditsData: Credits | undefined,
+  searchParams: URLSearchParams,
+) {
+  let minAmount = creditsData?.filter?.amount;
+  minAmount ??= +searchParams.get("minAmount")!;
+  minAmount ??= 0;
+  return minAmount > 0 ? minAmount : 0;
+}
+
 export const CreditsPage: FC = () => {
   const { data: creditsData, isFetching } = useQuery(
     { queryFn: fetchCredits, queryKey: ["creditsList"] },
@@ -45,7 +56,7 @@ export const CreditsPage: FC = () => {
   );
   const [searchParams, setSearchParams] = useSearchParams();
   const [minAmount, setMinAmount] = useState<number>(
-    creditsData?.filter.amount ?? +searchParams.get("minAmount")! ?? 0,
+    getInitMinAmount(creditsData, searchParams),
   );
   const [sortOrder, setSortOrder] = useState<string>(
     searchParams?.get("sortOrder") ?? "1",
