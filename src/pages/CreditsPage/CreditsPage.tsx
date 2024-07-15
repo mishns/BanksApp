@@ -11,14 +11,13 @@ import {
   Box,
   Container,
   FormControl,
-  Input,
   MenuItem,
-  Select,
   SelectChangeEvent,
 } from "@mui/material";
-import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import { useSearchParams } from "react-router-dom";
 import { SocialGroup } from "@ui/SocialGroup";
+import { SortSelect } from "@ui/SortSelect";
+import { AmountInput } from "@ui/AmountInput";
 
 function getProductCards(productList: Array<Product> | undefined) {
   return productList?.map(product => (
@@ -52,6 +51,14 @@ export const CreditsPage: FC = () => {
     setSearchParams(searchParams);
   }, [minAmount, sortOrder]);
 
+  function handleAmountInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setMinAmount(Number(e.target.value));
+  }
+
+  function handleSortChange(e: SelectChangeEvent) {
+    setSortOrder(e.target.value);
+  }
+
   // Filter products according to min credit amount
   const filteredProducts = creditsData?.products.filter(
     product => product.amount >= minAmount,
@@ -70,31 +77,12 @@ export const CreditsPage: FC = () => {
         <SocialGroup />
         <FormControl className={styles.filterForm} fullWidth>
           <Box className={styles.amountInputBlock}>
-            <Input
-              className={styles.filterInput}
-              type="text"
-              disableUnderline
-              placeholder="Сумма кредита"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setMinAmount(Number(e.target.value))
-              }
-            />
+            <AmountInput onChange={handleAmountInputChange} />
           </Box>
-          <Select
-            labelId="sortSelectLabel"
-            id="sortSelect"
-            defaultValue={"1"}
-            IconComponent={UnfoldMoreIcon}
-            variant="standard"
-            disableUnderline={true}
-            displayEmpty
-            sx={{ width: "fit-content" }}
-            renderValue={() => <span>Сортировать</span>}
-            onChange={(e: SelectChangeEvent) => setSortOrder(e.target.value)}
-          >
+          <SortSelect onChange={handleSortChange}>
             <MenuItem value="1">По минимальной сумме</MenuItem>
             <MenuItem value="-1">По максимальной сумме</MenuItem>
-          </Select>
+          </SortSelect>
         </FormControl>
         {isFetching ? (
           <Loader />
