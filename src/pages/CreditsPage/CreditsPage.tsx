@@ -46,13 +46,6 @@ function getInitMinAmount(
   let minAmount = creditsData?.filter?.amount;
   minAmount ??= +searchParams.get("minAmount")!;
   minAmount ??= 0;
-  if (creditsData?.filter?.amount && minAmount === 0) {
-    console.log(minAmount);
-    minAmount = creditsData?.filter?.amount;
-  }
-
-  console.log(minAmount);
-
   return minAmount > 0 ? minAmount : 0;
 }
 
