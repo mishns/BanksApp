@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 import { useSearchParams } from "react-router-dom";
+import { SocialGroup } from "@ui/SocialGroup";
 
 function getProductCards(productList: Array<Product> | undefined) {
   return productList?.map(product => (
@@ -61,7 +62,12 @@ export const CreditsPage: FC = () => {
 
   return (
     <div className={styles.creditsPage}>
-      <Container maxWidth="xs">
+      <Container
+        sx={{ display: "flex" }}
+        className={styles.creditsContainer}
+        maxWidth="xs"
+      >
+        <SocialGroup />
         <FormControl className={styles.filterForm} fullWidth>
           <Box className={styles.amountInputBlock}>
             <Input
