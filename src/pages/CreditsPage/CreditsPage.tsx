@@ -25,6 +25,9 @@ const SORT_NAMES = {
 };
 
 function getProductCards(productList: Array<Product> | undefined) {
+  if (!productList) {
+    return [];
+  }
   return productList?.map(product => (
     <ProductCard
       key={uniqid()}
@@ -99,7 +102,7 @@ export const CreditsPage: FC = () => {
           <Loader />
         ) : (
           <div className={styles.productList}>
-            {sortOrder === "-1" ? productCards?.reverse() : productCards}
+            {sortOrder === "-1" ? productCards.reverse() : productCards}
           </div>
         )}
       </Container>
