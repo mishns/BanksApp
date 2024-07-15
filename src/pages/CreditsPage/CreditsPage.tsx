@@ -19,6 +19,11 @@ import { SocialGroup } from "@ui/SocialGroup";
 import { SortSelect } from "@ui/SortSelect";
 import { AmountInput } from "@ui/AmountInput";
 
+const SORT_NAMES = {
+  "1": "По минимальной сумме",
+  "-1": "По максимальной сумме",
+};
+
 function getProductCards(productList: Array<Product> | undefined) {
   return productList?.map(product => (
     <ProductCard
@@ -83,8 +88,11 @@ export const CreditsPage: FC = () => {
             />
           </Box>
           <SortSelect defaultValue={sortOrder} onChange={handleSortChange}>
-            <MenuItem value="1">По минимальной сумме</MenuItem>
-            <MenuItem value="-1">По максимальной сумме</MenuItem>
+            {Object.entries(SORT_NAMES).map(([order, orderName]) => (
+              <MenuItem key={order} value={order}>
+                {orderName}
+              </MenuItem>
+            ))}
           </SortSelect>
         </FormControl>
         {isFetching ? (
