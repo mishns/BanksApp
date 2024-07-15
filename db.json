@@ -1,7 +1,7 @@
 {
   "credits": {
     "filter": {
-      "amount": null
+      "amount": 500
     },
     "products": [{
       "amount": 1000,

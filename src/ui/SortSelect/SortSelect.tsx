@@ -5,13 +5,13 @@ import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 
 interface SortSelectProps {
   children: React.ReactNode;
-  defaultValue: string;
+  value: string;
   onChange: (e: SelectChangeEvent) => void;
 }
 
 export const SortSelect: FC<SortSelectProps> = ({
   children,
-  defaultValue,
+  value,
   onChange,
 }) => {
   return (
@@ -19,7 +19,7 @@ export const SortSelect: FC<SortSelectProps> = ({
       className={styles.sortSelect}
       labelId="sortSelectLabel"
       id="sortSelect"
-      defaultValue={defaultValue}
+      value={value}
       IconComponent={UnfoldMoreIcon}
       variant="standard"
       disableUnderline={true}

@@ -46,6 +46,13 @@ function getInitMinAmount(
   let minAmount = creditsData?.filter?.amount;
   minAmount ??= +searchParams.get("minAmount")!;
   minAmount ??= 0;
+  if (creditsData?.filter?.amount && minAmount === 0) {
+    console.log(minAmount);
+    minAmount = creditsData?.filter?.amount;
+  }
+
+  console.log(minAmount);
+
   return minAmount > 0 ? minAmount : 0;
 }
 
@@ -100,7 +107,7 @@ export const CreditsPage: FC = () => {
           <Box className={styles.amountInputBlock}>
             <AmountInput value={minAmount} onChange={handleAmountInputChange} />
           </Box>
-          <SortSelect defaultValue={sortOrder} onChange={handleSortChange}>
+          <SortSelect value={sortOrder} onChange={handleSortChange}>
             {Object.entries(SORT_NAMES).map(([order, orderName]) => (
               <MenuItem key={order} value={order}>
                 {orderName}
