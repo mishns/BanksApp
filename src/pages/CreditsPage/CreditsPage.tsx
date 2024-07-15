@@ -77,9 +77,12 @@ export const CreditsPage: FC = () => {
         <SocialGroup />
         <FormControl className={styles.filterForm} fullWidth>
           <Box className={styles.amountInputBlock}>
-            <AmountInput onChange={handleAmountInputChange} />
+            <AmountInput
+              defaultValue={minAmount}
+              onChange={handleAmountInputChange}
+            />
           </Box>
-          <SortSelect onChange={handleSortChange}>
+          <SortSelect defaultValue={sortOrder} onChange={handleSortChange}>
             <MenuItem value="1">По минимальной сумме</MenuItem>
             <MenuItem value="-1">По максимальной сумме</MenuItem>
           </SortSelect>
