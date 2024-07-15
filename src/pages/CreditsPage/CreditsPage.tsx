@@ -10,7 +10,7 @@ import { Product } from "@api/Credit";
 import {
   Box,
   Container,
-  FormControl,
+  FormGroup,
   MenuItem,
   SelectChangeEvent,
 } from "@mui/material";
@@ -60,7 +60,9 @@ export const CreditsPage: FC = () => {
   }, [minAmount, sortOrder]);
 
   function handleAmountInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setMinAmount(Number(e.target.value));
+    const inputValue = +e.target.value;
+    const newValue = inputValue > 0 ? inputValue : 0;
+    setMinAmount(newValue);
   }
 
   function handleSortChange(e: SelectChangeEvent) {
@@ -83,12 +85,9 @@ export const CreditsPage: FC = () => {
         maxWidth="xs"
       >
         <SocialGroup />
-        <FormControl className={styles.filterForm} fullWidth>
+        <FormGroup className={styles.filterForm}>
           <Box className={styles.amountInputBlock}>
-            <AmountInput
-              defaultValue={minAmount}
-              onChange={handleAmountInputChange}
-            />
+            <AmountInput value={minAmount} onChange={handleAmountInputChange} />
           </Box>
           <SortSelect defaultValue={sortOrder} onChange={handleSortChange}>
             {Object.entries(SORT_NAMES).map(([order, orderName]) => (
@@ -97,7 +96,7 @@ export const CreditsPage: FC = () => {
               </MenuItem>
             ))}
           </SortSelect>
-        </FormControl>
+        </FormGroup>
         {isFetching ? (
           <Loader />
         ) : (
